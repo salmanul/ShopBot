@@ -1,15 +1,15 @@
 ---
 declared-services:
-  my-conversation-service:
+  Conversation-8u:
     label: conversation
-    plan: free
+    plan: lite
 applications:
-- name: conversation-simple
+- name: i3linnoruption-ShopBot
   command: npm start
   path: .
   memory: 256M
   instances: 1
   services:
-  - my-conversation-service
+  - Conversation-8u-ChatBot
   env:
     NPM_CONFIG_PRODUCTION: false

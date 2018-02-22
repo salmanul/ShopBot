@@ -1,32 +1,141 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <base href="/">
-  <title>Conversation Chat App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:image" content="conversation.svg" />
-  <meta property="og:title" content="Conversation Chat Simple" />
-  <meta property="og:description" content="Sample application that shows how to use the Conversation API to identify user intents" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/app.css">
+	<base href = '/'>
+	<title>Conversation Chat App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta property="og:image" content="conversation.svg" />
+	<meta property="og:title" content="Conversation Chat Simple" />
+	<meta property="og:description" content="Sample application that shows how to use the Conversation API to identify user intents" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/mdb.min.css">
+	<link rel="stylesheet" href="css/cards.css">
+
+
+
+<style>
+	body {
+	    font-family: "Poppins", sans-serif;
+	    -webkit-font-smoothing: antialiased;
+	     scroll-behavior: smooth;
+	}
+
+	.sidenav {
+	    height: 100%;
+	    width: 600px;
+	    position: fixed;
+	    z-index: 1;
+	    top: 0;
+	    right: 0;
+	    background-color: white;
+	    overflow-x: hidden;
+	    transition: all 0.3s ease;
+	    box-shadow:black;
+		transform:translate(110%);
+		padding:1rem;
+		scroll-behavior: smooth;
+	}
+	/*
+	.sidenav a {
+	    padding: 8px 8px 8px 32px;
+	    text-decoration: none;
+	    font-size: 25px;
+	    color: #818181;
+	    display: block;
+	    transition: 0.3s;
+	}
+	*/
+
+	.sidenav a:hover {
+	    color: blue !important;
+	}
+
+	.sidenav .closebtn {
+	    position: absolute;
+	    top: 15px;
+	    right: 0px;
+	    font-size: 36px;
+	    /*margin-left: 50px;*/
+		    font-family: serif;
+	    color: rgba(128, 128, 128, 0.5) !important;
+	}
+
+
+	@media screen and (max-height: 450px) {
+	  .sidenav {padding-top: 15px;}
+	  .sidenav a {font-size: 18px;}
+	}
+	#quick-side-bar{
+	height:100%;
+	}
+	#quick-side-bar-content{
+
+	height:100%;
+	}
+	#quick-side-bar-header{
+	    width: 100%;
+	    height: 5%;
+		display: flex;
+	    align-items: center;
+		margin-bottom: 1rem;
+	    border-bottom: solid 1px rgba(128, 128, 128, 0.48);
+		position:relative;
+	}
+	#tab-content{
+	height:95%;
+	scroll-behavior:smooth;
+	}
+	#chat-icon{
+	    display: block;
+	    width: 17rem;
+	    overflow: hidden;
+	    margin-top: 22rem;
+	    margin-left: 53rem;
+		cursor:pointer;
+	}
+	#horizontal-bar{
+	    width: inherit;
+	    border-bottom: solid 1px rgba(206, 206, 206, 0.88);
+
+	}
+</style>
 </head>
 <body>
-  <div id="view-change-button" class="button" onclick="PayloadPanel.togglePanel(event, this)">
-    <img class="option full" src="../img/Chat Button.png">
-    <img class="option not-full" src="../img/Code Button.png">
-  </div>
-  <div id="contentParent" class="responsive-columns-wrapper">
+
+<div id="mySidenav" class="sidenav z-depth-2">
+
+	<div id='quick-side-bar'>
+		<div id='quick-side-bar-content'>
+			<div id='quick-side-bar-header'>
+				<span id='header-content'>
+					<p style="font-family: 'Poppins', sans-serif;font-size: 22px;color: rgb(113, 106, 202);">ITC ProductAssistantBot</p>
+
+					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+				</span>
+			</div>
+
+			<div id='tab-content'>
+
+
+			<!-- Chat Scrolling Window -->
+			<div id="contentParent" class="responsive-columns-wrapper">
     <div id="chat-column-holder" class="responsive-column content-column">
+
       <div class="chat-column">
-        <div id="scrollingChat"></div>
-        <label for="textInput" class="inputOutline">
-          <input id="textInput" class="input responsive-column"
-            placeholder="Type something" type="text"
-            onkeydown="ConversationPanel.inputKeyDown(event, this)">
+        <div id="scrollingChat" class="smooth-scroll"></div>
+		<div id="bottom-text-box">
+		<label for="textInput" class="inputOutline responsive-column">
+          <input id="textInput" class="input responsive-column" placeholder="Type here..." type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)" style="width:100%">
         </label>
+    </div>
       </div>
     </div>
-    <div id="payload-column" class="fixed-column content-column">
+    <div id="payload-column" class="fixed-column content-column" style="display:none;">
       <div id="payload-initial-message">
         Type something to see the output
       </div>
@@ -35,10 +144,64 @@
     </div>
   </div>
 
+			</div>
+
+
+
+
+		</div>
+
+	</div>
+
+  <!--<a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>-->
+</div>
+
+<div id="bg-image" style="position:fixed">
+<img src="icon.png" onclick="openNav()" class="img-fluid" style="position:absolute;margin-left:43%;margin-top:19%;width:15%;cursor:pointer;">
+<img src="bg.jpg" class="img-fluid">
+
+</div>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.transform = "translate(0%)";
+
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.transform = "translate(110%)";
+
+}
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/tether.min.js"></script>
   <script src="js/api.js"></script>
-  <script src="js/conversation.js"></script>
+  <script src="js/conversation-edited.js"></script>
   <script src="js/payload.js"></script>
-  <script src="js/global.js"></script>
+  <script src="js/global-edited.js"></script>  
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/mdb.min.js"></script>
+  <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>

@@ -58,4 +58,6 @@ var Api = (function() {
     // Send request
     http.send(params);
   }
+ console.log(getResponsePayload);
+
 }());

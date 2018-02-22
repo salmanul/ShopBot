@@ -22,6 +22,9 @@ require('dotenv').config({silent: true});
 var server = require('./app');
 var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
+//For Proxy
+//process.env.HTTPS_PROXY = 'http://10.6.13.87:8080';
+
 server.listen(port, function() {
   // eslint-disable-next-line
   console.log('Server running on port: %d', port);
