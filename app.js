@@ -21,8 +21,8 @@ var bodyParser = require('body-parser'); // parser for post requests
 var Conversation = require('watson-developer-cloud/conversation/v1'); // watson sdk
 
 var Cloudant = require('cloudant');
-var account = '77e16f06-ff20-4b18-9b06-0c0f53a70fe2-bluemix';
-var password = 'faa84afce13cd1a5d554108439821a248cd3263dcaa2cd6c01e64caca854cdb9';
+var account = '{ACCOUNT_ID}';
+var password = '{PASSWORD}';
 var cloudant = Cloudant({ account: account, password: password });
 
 
@@ -38,15 +38,15 @@ app.use(bodyParser.json());
 var conversation = new Conversation({
   // If unspecified here, the CONVERSATION_USERNAME and CONVERSATION_PASSWORD env properties will be checked
   // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
-    username:"05a6e922-5591-45da-89e9-f874c96a4736",
-    password: "ZenwofJmXE0p",
+    username:"{CONVERSATION_USERNAME}",
+    password: "{CONVERSATION_PASSWORD}",
     //url: 'https://gateway.watsonplatform.net/conversation/api',
     version_date: Conversation.VERSION_DATE_2017_04_21
 });
 
 // Endpoint to be call from the client side
 app.post('/api/message', function(req, res) {
-    var workspace = process.env.WORKSPACE_ID || "c04e6074-2573-4898-a546-5b72f4bd24a5";
+    var workspace = process.env.WORKSPACE_ID || "{WORKSPACE_ID}";
   if (!workspace || workspace === '<workspace-id>') {
     return res.json({
       'output': {
